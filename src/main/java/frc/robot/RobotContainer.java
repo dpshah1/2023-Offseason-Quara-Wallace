@@ -5,25 +5,17 @@
 package frc.robot;
 
 // Imports subsystems and commands 
-import frc.robot.subsystems.*;
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-import frc.robot.Constants;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Move;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.ExampleSubsystem;
 
 
 
@@ -49,7 +41,7 @@ public class RobotContainer {
   public static MotorControllerGroup leftDrive = new MotorControllerGroup(leftLeader, leftFollower);
   public static MotorControllerGroup rightDrive = new MotorControllerGroup(rightLeader, rightFollower);
 
-  public static DifferentialDrive myDrive = new DifferentialDrive(leftDrive, rightDrive);
+  public static DifferentialDrive myRobot = new DifferentialDrive(leftDrive, rightDrive);
   public static Drivetrain drivetrain = new Drivetrain();
   public static Move move = new Move(drivetrain);
 

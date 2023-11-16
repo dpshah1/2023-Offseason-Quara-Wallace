@@ -5,15 +5,21 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   
-  public Drivetrain() {}
+  public Drivetrain() {
+    RobotContainer.myRobot.arcadeDrive(0, 0);
+
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    RobotContainer.move.execute();
+
   }
 
   @Override
