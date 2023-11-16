@@ -4,11 +4,28 @@
 
 package frc.robot;
 
+// Imports subsystems and commands 
+import frc.robot.subsystems.*;
+import frc.robot.commands.*;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+import frc.robot.Constants;
+
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,6 +38,23 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
+  // Drivetrain motors 
+  public static WPI_VictorSPX rightLeader = new WPI_VictorSPX(Constants.RightLeader);
+  public static WPI_VictorSPX rightFollower = new WPI_VictorSPX(Constants.RightFollower);
+  public static WPI_VictorSPX leftLeader = new WPI_VictorSPX(Constants.LeftLeader);
+  public static WPI_VictorSPX leftFollower = new WPI_VictorSPX(Constants.LeftFollower);
+
+  // Motor groups
+  public static MotorControllerGroup leftDrive = new MotorControllerGroup(leftLeader, leftFollower);
+  public static MotorControllerGroup rightDrive = new MotorControllerGroup(rightLeader, rightFollower);
+
+  public static DifferentialDrive myDrive = new DifferentialDrive(leftDrive, rightDrive);
+  public static Drivetrain drivetrain = new Drivetrain();
+  public static Move move = new Move(drivetrain);
+
+  public static XboxController xController = new XboxController(Constants.XboxPort);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
