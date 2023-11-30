@@ -12,11 +12,14 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Move;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import frc.robot.commands.ExampleCommand;
-
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 
 
 /**
@@ -34,6 +37,10 @@ public class RobotContainer {
   public static WPI_VictorSPX leftLeader = new WPI_VictorSPX(Constants.LeftLeader);
   public static WPI_VictorSPX leftFollower = new WPI_VictorSPX(Constants.LeftFollower);
 
+  // Intake motors
+  public static CANSparkMax leftIntakeMotor = new CANSparkMax(Constants.LeftIntakeMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
+  public static CANSparkMax rightIntakeMotor = new CANSparkMax(Constants.RightIntakeMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
+
   // Motor groups
   public static MotorControllerGroup leftDrive = new MotorControllerGroup(leftLeader, leftFollower);
   public static MotorControllerGroup rightDrive = new MotorControllerGroup(rightLeader, rightFollower);
@@ -47,6 +54,7 @@ public class RobotContainer {
   public static XboxController xController = new XboxController(Constants.XboxPort);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
+  private final Intake intake = new Intake(leftIntakeMotor, rightIntakeMotor);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -55,14 +63,19 @@ public class RobotContainer {
     configureButtonBindings();
   }
 
+
+
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
-
+  private void configureButtonBindings() {
+    new JoystickButton(xController, Constants.teleopIntakeButton).whileTrue(intake.teleopIntakeCommand());
+    new JoystickButton(xController, Constants.teleopOuttakeButton).whileTrue(intake.teleopOuttakeCommand());
+    new JoystickButton(xController, 3).whileTrue(intake.stopIntake());
+  }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
