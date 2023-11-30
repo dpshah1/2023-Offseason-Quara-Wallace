@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Move;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.ExampleCommand;
 
 
 
@@ -27,9 +27,6 @@ import frc.robot.subsystems.ExampleSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   // Drivetrain motors 
   public static WPI_VictorSPX rightLeader = new WPI_VictorSPX(Constants.RightLeader);
@@ -45,7 +42,11 @@ public class RobotContainer {
   public static Drivetrain drivetrain = new Drivetrain();
   public static Move move = new Move(drivetrain);
 
+  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+
   public static XboxController xController = new XboxController(Constants.XboxPort);
+  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
