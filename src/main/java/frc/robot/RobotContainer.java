@@ -17,6 +17,7 @@ import frc.robot.commands.Move;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Wrist;
 import frc.robot.commands.ExampleCommand;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
@@ -51,10 +52,13 @@ public class RobotContainer {
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  public static XboxController xController = new XboxController(Constants.XboxPort);
+  public static XboxController xController = new XboxController(Constants.XBOX_PORT);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private final Intake intake = new Intake(leftIntakeMotor, rightIntakeMotor);
+  private final Intake myIntake = new Intake(leftIntakeMotor, rightIntakeMotor);
+
+  public static CANSparkMax wristMotor = new CANSparkMax(Constants.WRIST_MOTOR_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
+  public static Wrist myWrist = new Wrist(wristMotor);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -72,9 +76,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(xController, Constants.teleopIntakeButton).whileTrue(intake.teleopIntakeCommand());
-    new JoystickButton(xController, Constants.teleopOuttakeButton).whileTrue(intake.teleopOuttakeCommand());
-    new JoystickButton(xController, 3).whileTrue(intake.stopIntake());
+    new JoystickButton(xController, Constants.TELEOP_INTAKE_BUTTON).whileTrue(myIntake.teleopIntakeCommand());
+    new JoystickButton(xController, Constants.TELEOP_OUTTAKE_BUTTON).whileTrue(myIntake.teleopOuttakeCommand());
+    new JoystickButton(xController, Constants.STOP_INTAKE_BUTTON).whileTrue(myIntake.stopIntake());
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

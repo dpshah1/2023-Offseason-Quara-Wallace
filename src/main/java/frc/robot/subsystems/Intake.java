@@ -33,13 +33,13 @@ public class Intake extends SubsystemBase {
 
   public Command teleopIntakeCommand(){
     return runOnce(() -> {
-      rightIntakeMotor.set(Constants.IntakeSpeed);
+      rightIntakeMotor.set(Constants.INTAKE_SPEED);
     });
   } 
 
   public Command teleopOuttakeCommand(){
     return runOnce(() -> {
-      rightIntakeMotor.set(Constants.OuttakeSpeed);
+      rightIntakeMotor.set(Constants.OUTTAKE_SPEED);
     });
   }
 

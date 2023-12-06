@@ -6,8 +6,6 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
 
 public class Move extends CommandBase {
-  private double spdMult;
-  private double rotMult;
   public Drivetrain drivetrain;
 
 
@@ -15,8 +13,6 @@ public class Move extends CommandBase {
     drivetrain = mDrivetrain;
     addRequirements(mDrivetrain);
 
-    spdMult = Constants.DriveSpeed;
-    rotMult = Constants.RotationSpeed;
   }
 
 
@@ -38,12 +34,13 @@ public class Move extends CommandBase {
     // Calls a function to move the robot depending on the driveMode constant 
     double speed = RobotContainer.xController.getLeftY();
     double rotation = RobotContainer.xController.getLeftX();
-    RobotContainer.myRobot.arcadeDrive(rotation * rotMult, spdMult * speed);
+    RobotContainer.myRobot.arcadeDrive(rotation * Constants.ROTATION_SPEED, speed * Constants.DRIVE_SPEED);
 
     System.out.println("Speed: " + speed);
     System.out.println("Rotation: " + rotation);
     System.out.println("LeftY: " + RobotContainer.xController.getLeftY());
     System.out.println("LeftX: " + RobotContainer.xController.getLeftX());
+    System.out.println();
 
 
   }
