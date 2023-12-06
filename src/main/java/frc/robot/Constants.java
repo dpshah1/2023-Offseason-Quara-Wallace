@@ -26,9 +26,9 @@ public final class Constants {
     public static final int teleopOuttakeButton = 5;
     public static final int teleopIntakeButton = 6;
 
-    public static final double DriveSpeed = 0.1;
-    public static final double RotationSpeed = 0.1;
-    public static final double IntakeSpeed = 0.1;
-    public static final double OuttakeSpeed = -0.1;
+    public static final double DriveSpeed = 0.5;
+    public static final double RotationSpeed = 0.5;
+    public static final double IntakeSpeed = 0.4;
+    public static final double OuttakeSpeed = -0.8;
 
 }
