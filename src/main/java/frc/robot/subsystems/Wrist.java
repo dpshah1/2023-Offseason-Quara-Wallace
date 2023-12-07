@@ -17,6 +17,7 @@ public class Wrist extends SubsystemBase {
   public Wrist(CANSparkMax wristMotor) {
     this.wristMotor = wristMotor;
     wristMotor.set(0);
+    wristMotor.getEncoder().setPosition(0.0);
   }
     
   @Override
