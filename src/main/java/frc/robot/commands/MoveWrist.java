@@ -13,8 +13,9 @@ import frc.robot.RobotContainer;
 /** An example command that uses an example subsystem. */
 public class MoveWrist extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Wrist m_subsystem;
-  private final PIDController pid = new PIDController(Constants.P_WRIST, Constants.I_WRIST, Constants.D_WRIST);
+  private Wrist m_subsystem;
+  private PIDController pid = new PIDController(Constants.P_WRIST, Constants.I_WRIST, Constants.D_WRIST);
+  private double wristSetpoint;
 
   /**
    * Creates a new ExampleCommand.
@@ -25,6 +26,8 @@ public class MoveWrist extends CommandBase {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
+
+    wristSetpoint = m_subsystem.wristMotor.getEncoder().getPosition();
   }
 
   // Called when the command is initially scheduled.
@@ -42,18 +45,20 @@ public class MoveWrist extends CommandBase {
     {
         m_subsystem.wristMotor.set(Constants.WRIST_SPEED);
         pid.reset();
+        wristSetpoint = m_subsystem.wristMotor.getEncoder().getPosition();
     }
     // Move wrist down
     else if(RobotContainer.xController.getRightX() < -0.5)
     {
         m_subsystem.wristMotor.set(-Constants.WRIST_SPEED);
         pid.reset();
+        wristSetpoint = m_subsystem.wristMotor.getEncoder().getPosition();
     }
     // Use PID to keep the wrist in place
     else
     {
-        double currentPosition = RobotContainer.myWrist.wristMotor.getEncoder().getPosition();
-        m_subsystem.wristMotor.set(pid.calculate(currentPosition, currentPosition));
+        double currentPosition = m_subsystem.myWrist.wristMotor.getEncoder().getPosition();
+        m_subsystem.wristMotor.set(pid.calculate(currentPosition, wristSetpoint));
     }
   }
 
