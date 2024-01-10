@@ -40,6 +40,8 @@ public class MoveWrist extends CommandBase {
   @Override
   public void execute() {
 
+    SmartDashboard.putNumber(wristSetpoint);
+    
     // Move wrist up
     if(RobotContainer.xController.getRightX() > 0.5)
     {
