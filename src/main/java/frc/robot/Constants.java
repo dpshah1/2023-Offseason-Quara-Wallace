@@ -39,10 +39,15 @@ public final class Constants {
     public static final double OUTTAKE_SPEED = -0.8;
 
     // Wrist stuff
-    public static final int WRIST_MOTOR_PORT = -999; // find out actual id
+    public static final int WRIST_MOTOR_PORT = 10; // find out actual id
+    public static final int ARM_MOTOR_PORT = 11;
     public static final double WRIST_SPEED = 0.2;
+    public static final double ARM_SPEED = 0.1;
     public static final double P_WRIST = 0.1;
     public static final double I_WRIST = 0;
     public static final double D_WRIST = 0;
+    public static final double P_ARM = 0.1;
+    public static final double I_ARM = 0;
+    public static final double D_ARM = 0;
 
 }

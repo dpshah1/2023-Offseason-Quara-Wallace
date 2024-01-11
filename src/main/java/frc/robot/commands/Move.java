@@ -36,11 +36,11 @@ public class Move extends CommandBase {
     double rotation = RobotContainer.xController.getLeftX();
     RobotContainer.myRobot.arcadeDrive(rotation * Constants.ROTATION_SPEED, speed * Constants.DRIVE_SPEED);
 
-    System.out.println("Speed: " + speed);
-    System.out.println("Rotation: " + rotation);
-    System.out.println("LeftY: " + RobotContainer.xController.getLeftY());
-    System.out.println("LeftX: " + RobotContainer.xController.getLeftX());
-    System.out.println();
+    // System.out.println("Speed: " + speed);
+    // System.out.println("Rotation: " + rotation);
+    // System.out.println("LeftY: " + RobotContainer.xController.getLeftY());
+    // System.out.println("LeftX: " + RobotContainer.xController.getLeftX());
+    // System.out.println();
 
 
   }

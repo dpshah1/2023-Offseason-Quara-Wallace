@@ -10,21 +10,21 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
-public class Wrist extends SubsystemBase {
+public class Arm extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public CANSparkMax wristMotor;
-  public RobotContainer myWrist;
+  public CANSparkMax armMotor;
+  public RobotContainer myArm;
 
-    public Wrist(CANSparkMax wristMotor) {
-    this.wristMotor = wristMotor;
-    wristMotor.set(0);
-    wristMotor.getEncoder().setPosition(0.0);
+    public Arm(CANSparkMax armMotor) {
+    this.armMotor = armMotor;
+    armMotor.set(0);
+    armMotor.getEncoder().setPosition(0.0);
   }
     
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    RobotContainer.moveWristCommand.execute();
+    RobotContainer.moveArmCommand.execute();
 
   }
 

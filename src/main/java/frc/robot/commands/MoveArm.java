@@ -7,28 +7,28 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Wrist;
+import frc.robot.subsystems.Arm;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 /** An example command that uses an example subsystem. */
-public class MoveWrist extends CommandBase {
+public class MoveArm extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private Wrist m_subsystem;
-  private PIDController pid = new PIDController(Constants.P_WRIST, Constants.I_WRIST, Constants.D_WRIST);
-  private double wristSetpoint;
+  private Arm m_subsystem;
+  private PIDController pid = new PIDController(Constants.P_ARM, Constants.I_ARM, Constants.D_ARM);
+  private double armSetpoint;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public MoveWrist(Wrist subsystem) {
+  public MoveArm(Arm subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
 
-    wristSetpoint = m_subsystem.wristMotor.getEncoder().getPosition();
+    armSetpoint = m_subsystem.armMotor.getEncoder().getPosition();
   }
 
   // Called when the command is initially scheduled.
@@ -41,27 +41,27 @@ public class MoveWrist extends CommandBase {
   @Override
   public void execute() {
 
-    SmartDashboard.putNumber("Wrist Setpoint", wristSetpoint);
+    SmartDashboard.putNumber("Arm Setpoint", armSetpoint);
     
     // Move wrist up
-    if(RobotContainer.xController.getRightX() > 0.5)
+    if(RobotContainer.xController.getRightY() > 0.5)
     {
-        m_subsystem.wristMotor.set(Constants.WRIST_SPEED);
+        m_subsystem.armMotor.set(Constants.ARM_SPEED);
         pid.reset();
-        wristSetpoint = m_subsystem.wristMotor.getEncoder().getPosition();
+        armSetpoint = m_subsystem.armMotor.getEncoder().getPosition();
     }
     // Move wrist down
-    else if(RobotContainer.xController.getRightX() < -0.5)
+    else if(RobotContainer.xController.getRightY() < -0.5)
     {
-        m_subsystem.wristMotor.set(-Constants.WRIST_SPEED);
+        m_subsystem.armMotor.set(-Constants.ARM_SPEED);
         pid.reset();
-        wristSetpoint = m_subsystem.wristMotor.getEncoder().getPosition();
+        armSetpoint = m_subsystem.armMotor.getEncoder().getPosition();
     }
     // Use PID to keep the wrist in place
     else
     {
-        double currentPosition = m_subsystem.myWrist.wristMotor.getEncoder().getPosition();
-        m_subsystem.wristMotor.set(pid.calculate(currentPosition, wristSetpoint));
+        double currentPosition = m_subsystem.myArm.armMotor.getEncoder().getPosition();
+        m_subsystem.armMotor.set(pid.calculate(currentPosition, armSetpoint));
     }
   }
 

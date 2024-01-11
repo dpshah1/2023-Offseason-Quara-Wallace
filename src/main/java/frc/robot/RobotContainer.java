@@ -19,6 +19,8 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Wrist;
 import frc.robot.commands.MoveWrist;
+import frc.robot.subsystems.Arm;
+import frc.robot.commands.MoveArm;
 import frc.robot.commands.ExampleCommand;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
@@ -59,9 +61,12 @@ public class RobotContainer {
   private final Intake myIntake = new Intake(leftIntakeMotor, rightIntakeMotor);
 
   public static CANSparkMax wristMotor = new CANSparkMax(Constants.WRIST_MOTOR_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
+  public static CANSparkMax armMotor = new CANSparkMax(Constants.ARM_MOTOR_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
   public static Wrist myWrist = new Wrist(wristMotor);
+  public static Arm myArm = new Arm(armMotor);
 
   public static MoveWrist moveWristCommand = new MoveWrist(myWrist);
+  public static MoveArm moveArmCommand = new MoveArm(myArm);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
