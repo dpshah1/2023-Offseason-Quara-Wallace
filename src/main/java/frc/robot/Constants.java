@@ -21,8 +21,8 @@ public final class Constants {
 
     
     // Intake Ports
-    public static final int LeftIntakeMotorPort = 8; // Change these to the correct ports
-    public static final int RightIntakeMotorPort = 7; // Change these to the correct ports
+    public static final int LeftIntakeMotorPort = 12; // Change these to the correct ports
+    public static final int RightIntakeMotorPort = 11; // Change these to the correct ports
 
     // Xbox controller buttons
     public static final int XBOX_PORT = 0;
@@ -35,14 +35,14 @@ public final class Constants {
     public static final double ROTATION_SPEED = 0.5;
     
     // Intake speeds
-    public static final double INTAKE_SPEED = 0.4;
+    public static final double INTAKE_SPEED = 0.2;
     public static final double OUTTAKE_SPEED = -0.8;
 
     // Wrist stuff
     public static final int WRIST_MOTOR_PORT = 10; // find out actual id
-    public static final int ARM_MOTOR_PORT = 11;
+    public static final int ARM_MOTOR_PORT = 13;
     public static final double WRIST_SPEED = 0.2;
-    public static final double ARM_SPEED = 0.1;
+    public static final double ARM_SPEED = 0.3;
     public static final double P_WRIST = 0.1;
     public static final double I_WRIST = 0;
     public static final double D_WRIST = 0;
