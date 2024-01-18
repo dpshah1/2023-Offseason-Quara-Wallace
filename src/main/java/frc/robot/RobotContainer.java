@@ -13,17 +13,15 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.Move;
+import frc.robot.commands.*;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Wrist;
-import frc.robot.commands.MoveWrist;
 import frc.robot.subsystems.Arm;
-import frc.robot.commands.MoveArm;
-import frc.robot.commands.ExampleCommand;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import frc.robot.commands.MoveRollers;
 
 
 /**
@@ -58,7 +56,8 @@ public class RobotContainer {
   public static XboxController xController = new XboxController(Constants.XBOX_PORT);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private final Intake myIntake = new Intake(leftIntakeMotor, rightIntakeMotor);
+  private static final Intake myIntake = new Intake(leftIntakeMotor, rightIntakeMotor);
+  public static final MoveRollers intakeCommand = new MoveRollers(myIntake);
 
   public static CANSparkMax wristMotor = new CANSparkMax(Constants.WRIST_MOTOR_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
   public static CANSparkMax armMotor = new CANSparkMax(Constants.ARM_MOTOR_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -84,9 +83,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(xController, Constants.TELEOP_INTAKE_BUTTON).whileTrue(myIntake.teleopIntakeCommand());
-    new JoystickButton(xController, Constants.TELEOP_OUTTAKE_BUTTON).whileTrue(myIntake.teleopOuttakeCommand());
-    new JoystickButton(xController, Constants.STOP_INTAKE_BUTTON).whileTrue(myIntake.stopIntake());
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

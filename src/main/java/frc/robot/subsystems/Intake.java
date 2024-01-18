@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 
 public class Intake extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
@@ -26,27 +27,23 @@ public class Intake extends SubsystemBase {
     rightIntakeMotor.set(0);
   }
     
-  // @Override
-  // public void periodic() {
+   @Override
+   public void periodic() {
+     RobotContainer.intakeCommand.execute();
+   }
 
-  // }
-
-  public Command teleopIntakeCommand(){
-    return runOnce(() -> {
+  public void teleopIntakeCommand(){
+    System.out.println("ran intake");
       rightIntakeMotor.set(Constants.INTAKE_SPEED);
-    });
   } 
 
-  public Command teleopOuttakeCommand(){
-    return runOnce(() -> {
+  public void teleopOuttakeCommand(){
+    System.out.println("ran outake");
       rightIntakeMotor.set(Constants.OUTTAKE_SPEED);
-    });
   }
 
-  public Command stopIntake(){
-    return runOnce(() -> {
+  public void stopIntake(){
       rightIntakeMotor.set(0);
-    });
   }
 
 
