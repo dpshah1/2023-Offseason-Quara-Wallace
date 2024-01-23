@@ -14,14 +14,14 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Wrist;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.*;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import frc.robot.commands.MoveRollers;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 
 /**
@@ -38,6 +38,8 @@ public class RobotContainer {
   public static WPI_VictorSPX rightFollower = new WPI_VictorSPX(Constants.RightFollower);
   public static WPI_VictorSPX leftLeader = new WPI_VictorSPX(Constants.LeftLeader);
   public static WPI_VictorSPX leftFollower = new WPI_VictorSPX(Constants.LeftFollower);
+
+
 
   // Intake motors
   public static CANSparkMax leftIntakeMotor = new CANSparkMax(Constants.LeftIntakeMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -66,6 +68,11 @@ public class RobotContainer {
 
   public static MoveWrist moveWristCommand = new MoveWrist(myWrist);
   public static MoveArm moveArmCommand = new MoveArm(myArm);
+
+
+  public static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+
+  public static Vision vision = new Vision(table);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
