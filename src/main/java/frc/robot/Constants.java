@@ -38,7 +38,7 @@ public final class Constants {
     public static final double INTAKE_SPEED = 0.2;
     public static final double OUTTAKE_SPEED = -0.8;
 
-    // Wrist stuff
+    // Wrist and arm stuff
     public static final int WRIST_MOTOR_PORT = 10; // find out actual id
     public static final int ARM_MOTOR_PORT = 13;
     public static final double WRIST_SPEED = 0.2;
@@ -49,5 +49,8 @@ public final class Constants {
     public static final double P_ARM = 0.1;
     public static final double I_ARM = 0;
     public static final double D_ARM = 0;
+
+    // Vision stuff
+    public static final int APRIL_TAG_PIPELINE = 4;
 
 }

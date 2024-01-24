@@ -53,13 +53,13 @@ public class RobotContainer {
   public static Drivetrain drivetrain = new Drivetrain();
   public static Move move = new Move(drivetrain);
 
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  public static ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   public static XboxController xController = new XboxController(Constants.XBOX_PORT);
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  public static ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private static final Intake myIntake = new Intake(leftIntakeMotor, rightIntakeMotor);
-  public static final MoveRollers intakeCommand = new MoveRollers(myIntake);
+  private static Intake myIntake = new Intake(leftIntakeMotor, rightIntakeMotor);
+  public static MoveRollers intakeCommand = new MoveRollers(myIntake);
 
   public static CANSparkMax wristMotor = new CANSparkMax(Constants.WRIST_MOTOR_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
   public static CANSparkMax armMotor = new CANSparkMax(Constants.ARM_MOTOR_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
