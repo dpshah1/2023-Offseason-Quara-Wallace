@@ -43,6 +43,10 @@ public class Vision extends SubsystemBase {
         SmartDashboard.putNumber("LimelightArea", area);
     }
 
+    public double calcOffset() {
+        return tx.getDouble(0.0);
+    }
+
     @Override
     public void simulationPeriodic() {
         // This method will be called once per scheduler run during simulation

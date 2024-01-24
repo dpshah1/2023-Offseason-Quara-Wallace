@@ -14,6 +14,9 @@ public class TiltTowardsTarget extends CommandBase {
   private final Vision visionSubsystem;
   private final Drivetrain drivetrainSubsystem;
 
+  private final double TILT_TOLERANCE = 0.5;
+  private final double kP = 0.05; // migt need adjusting
+
   /**
    * Creates a new ExampleCommand.
    *
@@ -32,7 +35,28 @@ public class TiltTowardsTarget extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    // A target has been found
+    double offset = visionSubsystem.calcOffset();
+    if (offset != 0.0) {
+        // Robot neeeds to spin clockwise
+        double speed = Math.max(kP * offset, 0.2);
+        if (offset > 0 && Math.abs(offset) > TILT_TOLERANCE) {
+            drivetrainSubsystem.setMovement(0, speed);
+        }
+        // Robot needs to spin counter-clockwise
+        else if (offset < 0 && Math.abs(offset) > TILT_TOLERANCE) {
+            drivetrainSubsystem.setMovement(0, -speed);
+        }
+        // Robot is facing the april tag
+        else {
+            drivetrainSubsystem.stopMovement();
+        }
+    }
+    else {
+        drivetrainSubsystem.stopMovement();
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
