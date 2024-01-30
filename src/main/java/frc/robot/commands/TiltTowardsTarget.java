@@ -15,7 +15,7 @@ public class TiltTowardsTarget extends CommandBase {
   private final Drivetrain drivetrainSubsystem;
 
   private final double TILT_TOLERANCE = 0.5;
-  private final double kP = 0.03; // migt need adjusting
+  private final double kP = 0.02; // migt need adjusting
 
   /**
    * Creates a new ExampleCommand.
@@ -46,11 +46,13 @@ public class TiltTowardsTarget extends CommandBase {
         double speed = Math.max(kP * Math.abs(offset), 0.2);
         System.out.println("Speed: " + speed);
         if (offset > 0 && Math.abs(offset) > TILT_TOLERANCE) {
-            drivetrainSubsystem.setMovement(0, speed);
+            System.out.println("Clockwise movement");
+            drivetrainSubsystem.setMovement(speed, 0);
         }
         // Robot needs to spin counter-clockwise
         else if (offset < 0 && Math.abs(offset) > TILT_TOLERANCE) {
-            drivetrainSubsystem.setMovement(0, -speed);
+            System.out.println("Counterclockwise movement");
+            drivetrainSubsystem.setMovement(-speed, 0);
         }
 
 
