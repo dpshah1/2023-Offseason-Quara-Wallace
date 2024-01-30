@@ -6,13 +6,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Wrist;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 /** An example command that uses an example subsystem. */
-public class MoveWrist extends Command {
+public class MoveWrist extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private Wrist m_subsystem;
   private PIDController pid = new PIDController(Constants.P_WRIST, Constants.I_WRIST, Constants.D_WRIST);

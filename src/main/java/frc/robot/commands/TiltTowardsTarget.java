@@ -5,11 +5,11 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
 /** An example command that uses an example subsystem. */
-public class TiltTowardsTarget extends Command {
+public class TiltTowardsTarget extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Vision visionSubsystem;
   private final Drivetrain drivetrainSubsystem;
@@ -60,9 +60,7 @@ public class TiltTowardsTarget extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    drivetrainSubsystem.stopMovement();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
