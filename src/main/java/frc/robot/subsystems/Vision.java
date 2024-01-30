@@ -44,6 +44,7 @@ public class Vision extends SubsystemBase {
     }
 
     public double calcOffset() {
+        System.out.println("the offset is " + tx.getDouble(0.0));
         return tx.getDouble(0.0);
     }
 

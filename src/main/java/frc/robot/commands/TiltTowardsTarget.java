@@ -15,7 +15,7 @@ public class TiltTowardsTarget extends CommandBase {
   private final Drivetrain drivetrainSubsystem;
 
   private final double TILT_TOLERANCE = 0.5;
-  private final double kP = 0.05; // migt need adjusting
+  private final double kP = 0.03; // migt need adjusting
 
   /**
    * Creates a new ExampleCommand.
@@ -31,16 +31,20 @@ public class TiltTowardsTarget extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+      System.out.println("initialize");
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+      System.out.println("execute");
     // A target has been found
     double offset = visionSubsystem.calcOffset();
     if (offset != 0.0) {
         // Robot neeeds to spin clockwise
-        double speed = Math.max(kP * offset, 0.2);
+        double speed = Math.max(kP * Math.abs(offset), 0.2);
+        System.out.println("Speed: " + speed);
         if (offset > 0 && Math.abs(offset) > TILT_TOLERANCE) {
             drivetrainSubsystem.setMovement(0, speed);
         }
@@ -48,26 +52,25 @@ public class TiltTowardsTarget extends CommandBase {
         else if (offset < 0 && Math.abs(offset) > TILT_TOLERANCE) {
             drivetrainSubsystem.setMovement(0, -speed);
         }
-        // Robot is facing the april tag
-        else {
-            drivetrainSubsystem.stopMovement();
-        }
+
+
+
     }
-    else {
-        drivetrainSubsystem.stopMovement();
-    }
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrainSubsystem.stopMovement();
+      System.out.println("end");
+      drivetrainSubsystem.stopMovement();
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() { 
-    if (visionSubsystem.calcOffset() <= kP) {
+  public boolean isFinished() {
+      System.out.println("is finished");
+    if (Math.abs(visionSubsystem.calcOffset()) <= kP) {
         return true;
     }
     else {

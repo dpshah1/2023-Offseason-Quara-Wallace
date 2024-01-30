@@ -30,7 +30,7 @@ public final class Constants {
     public static final int TELEOP_INTAKE_BUTTON = 6;
     public static final int STOP_INTAKE_BUTTON = 3;
 
-    public static final int TILT_BUTTON = 2;
+    public static final int TILT_BUTTON = 1;
 
     // Drivetrain speeds
     public static final double DRIVE_SPEED = 0.5;
