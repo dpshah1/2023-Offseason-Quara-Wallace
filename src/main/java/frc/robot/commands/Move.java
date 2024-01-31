@@ -27,14 +27,10 @@ public class Move extends CommandBase {
   @Override
   public void execute() {
 
-
-
-    
-
     // Calls a function to move the robot depending on the driveMode constant 
     double speed = RobotContainer.xController.getLeftY();
     double rotation = RobotContainer.xController.getLeftX();
-    RobotContainer.myRobot.arcadeDrive(rotation * Constants.ROTATION_SPEED, speed * Constants.DRIVE_SPEED);
+    drivetrain.setMovement(rotation * Constants.ROTATION_SPEED, speed * Constants.DRIVE_SPEED);
 
     // System.out.println("Speed: " + speed);
     // System.out.println("Rotation: " + rotation);
