@@ -10,60 +10,61 @@ import frc.robot.subsystems.*;
 
 /** An example command that uses an example subsystem. */
 public class TiltTowardsTarget extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final Vision visionSubsystem;
-  private final Drivetrain drivetrainSubsystem;
+	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
+	private final Vision visionSubsystem;
+	private final Drivetrain drivetrainSubsystem;
 
-  private final double TILT_TOLERANCE = 0.5;
-  private final double kP = 0.02; // migt need adjusting
+	private final double TILT_TOLERANCE = 0.5;
+	private final double kP = 0.02; // migt need adjusting
 
-  private PIDController pid;
+	private PIDController pid;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public TiltTowardsTarget(Vision visionSubsystem, Drivetrain drivetrainSubsytem) {
-    this.visionSubsystem = visionSubsystem;
-    this.drivetrainSubsystem = drivetrainSubsytem;
+	/**
+	 * Creates a new ExampleCommand.
+	 *
+	 * @param subsystem The subsystem used by this command.
+	 */
+	public TiltTowardsTarget(Vision visionSubsystem, Drivetrain drivetrainSubsytem) {
+		this.visionSubsystem = visionSubsystem;
+		this.drivetrainSubsystem = drivetrainSubsytem;
 
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drivetrainSubsytem);
-  }
+		// Use addRequirements() here to declare subsystem dependencies.
+		addRequirements(drivetrainSubsytem);
+	}
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    System.out.println("initialize");
-    pid = new PIDController(kP, 0, 0);
-    pid.setTolerance(TILT_TOLERANCE);
-    pid.setSetpoint(0);
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		System.out.println("initialize");
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    System.out.println("execute");
-    // A target has been found
-    double offset = visionSubsystem.calcOffset();
+		pid = new PIDController(kP, 0, 0);
+		pid.setTolerance(TILT_TOLERANCE);
+		pid.setSetpoint(0);
+	}
 
-    double rotSpeed = pid.calculate(offset);
+	// Called every time the scheduler runs while the command is scheduled.
+	@Override
+	public void execute() {
+		System.out.println("execute");
+		// A target has been found
+		double offset = visionSubsystem.calcOffset();
 
-    drivetrainSubsystem.setMovement(rotSpeed, 0);
+		double rotSpeed = pid.calculate(offset);
 
-  }
+		drivetrainSubsystem.setMovement(rotSpeed, 0);
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    System.out.println("end");
-    drivetrainSubsystem.stopMovement();
-  }
+	}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return pid.atSetpoint();
-  }
+	// Called once the command ends or is interrupted.
+	@Override
+	public void end(boolean interrupted) {
+		System.out.println("end");
+		drivetrainSubsystem.stopMovement();
+	}
+
+	// Returns true when the command should end.
+	@Override
+	public boolean isFinished() {
+		return pid.atSetpoint();
+	}
 }
