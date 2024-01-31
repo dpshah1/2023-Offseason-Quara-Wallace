@@ -1,12 +1,12 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 
-public class MoveRollers extends Command {
+public class MoveRollers extends CommandBase {
     public Intake intake;
 
 
@@ -29,16 +29,13 @@ public class MoveRollers extends Command {
     public void execute() {
 
         if (RobotContainer.xController.getRightBumper()) {
-            System.out.println("right bumper");
             intake.teleopIntakeCommand();
         }
         else if(RobotContainer.xController.getLeftBumper()) {
             intake.teleopOuttakeCommand();
-            System.out.println("left bumper");
         }
         else {
             intake.stopIntake();
-            System.out.println("no bumper");
         }
 
         // System.out.println("Speed: " + speed);

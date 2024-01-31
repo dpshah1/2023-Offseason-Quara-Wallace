@@ -22,8 +22,8 @@ public class Drivetrain extends SubsystemBase {
 
   }
 
-  public void setMovement(double moveSpeed, double rotSpeed) {
-    RobotContainer.myRobot.arcadeDrive(moveSpeed, rotSpeed);
+  public void setMovement(double rotSpeed, double moveSpeed) {
+    RobotContainer.myRobot.arcadeDrive(rotSpeed, moveSpeed);
   }
 
   public void stopMovement() {

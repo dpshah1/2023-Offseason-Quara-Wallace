@@ -1,11 +1,11 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
 
-public class Move extends Command {
+public class Move extends CommandBase {
   public Drivetrain drivetrain;
 
 
@@ -27,14 +27,10 @@ public class Move extends Command {
   @Override
   public void execute() {
 
-
-
-    
-
     // Calls a function to move the robot depending on the driveMode constant 
     double speed = RobotContainer.xController.getLeftY();
     double rotation = RobotContainer.xController.getLeftX();
-    RobotContainer.myRobot.arcadeDrive(rotation * Constants.ROTATION_SPEED, speed * Constants.DRIVE_SPEED);
+    drivetrain.setMovement(rotation * Constants.ROTATION_SPEED, speed * Constants.DRIVE_SPEED);
 
     // System.out.println("Speed: " + speed);
     // System.out.println("Rotation: " + rotation);
