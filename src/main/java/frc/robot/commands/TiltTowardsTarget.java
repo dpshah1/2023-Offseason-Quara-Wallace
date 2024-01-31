@@ -41,10 +41,12 @@ public class TiltTowardsTarget extends CommandBase {
       System.out.println("execute");
     // A target has been found
     double offset = visionSubsystem.calcOffset();
+    
     if (offset != 0.0) {
         // Robot neeeds to spin clockwise
         double speed = Math.max(kP * Math.abs(offset), 0.2);
         System.out.println("Speed: " + speed);
+        
         if (offset > 0 && Math.abs(offset) > TILT_TOLERANCE) {
             System.out.println("Clockwise movement");
             drivetrainSubsystem.setMovement(speed, 0);

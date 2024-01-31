@@ -93,7 +93,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     /// tilt button
-    new JoystickButton(xController, Constants.TILT_BUTTON).whileTrue(tiltTowardsTargetCommand);
+    new JoystickButton(xController, Constants.TILT_BUTTON).onTrue(tiltTowardsTargetCommand);
   }
 
   /**
