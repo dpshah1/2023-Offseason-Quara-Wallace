@@ -4,69 +4,74 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 
 /** An example command that uses an example subsystem. */
 public class TiltTowardsTarget extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Vision visionSubsystem;
-  private final Drivetrain drivetrainSubsystem;
+	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
+	
+	private final Vision visionSubsystem;
+	private final Drivetrain drivetrainSubsystem;
 
-  private final double TILT_TOLERANCE = 0.5;
-  private final double kP = 0.05; // migt need adjusting
+	private final double TILT_TOLERANCE = 0.5;
+	private final double kP = 0.02; // migt need adjusting
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public TiltTowardsTarget(Vision visionSubsystem, Drivetrain drivetrainSubsytem) {
-    this.visionSubsystem = visionSubsystem;
-    this.drivetrainSubsystem = drivetrainSubsytem;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drivetrainSubsytem);
-  }
+	private PIDController pid;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
+	/**
+	 * Creates a new ExampleCommand.
+	 *
+	 * @param subsystem The subsystem used by this command.
+	 */
+	public TiltTowardsTarget(Vision visionSubsystem, Drivetrain drivetrainSubsytem) {
+		this.visionSubsystem = visionSubsystem;
+		this.drivetrainSubsystem = drivetrainSubsytem;
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    // A target has been found
-    double offset = visionSubsystem.calcOffset();
-    if (offset != 0.0) {
-        // Robot neeeds to spin clockwise
-        double speed = Math.max(kP * offset, 0.2);
-        if (offset > 0 && Math.abs(offset) > TILT_TOLERANCE) {
-            drivetrainSubsystem.setMovement(0, speed);
-        }
-        // Robot needs to spin counter-clockwise
-        else if (offset < 0 && Math.abs(offset) > TILT_TOLERANCE) {
-            drivetrainSubsystem.setMovement(0, -speed);
-        }
-        // Robot is facing the april tag
-        else {
-            drivetrainSubsystem.stopMovement();
-        }
-    }
-    else {
-        drivetrainSubsystem.stopMovement();
-    }
-  }
+		// Use addRequirements() here to declare subsystem dependencies.
+		addRequirements(drivetrainSubsytem);
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    drivetrainSubsystem.stopMovement();
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		System.out.println("initialize");
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+		pid = new PIDController(kP, 0, 0);
+		pid.setTolerance(TILT_TOLERANCE);
+		pid.setSetpoint(0);
+	}
+
+	// Called every time the scheduler runs while the command is scheduled.
+	@Override
+	public void execute() {
+		double offset = visionSubsystem.calcOffset();
+		
+		if(offset != 0) {
+			double rotSpeed = pid.calculate(offset);
+
+			drivetrainSubsystem.setMovement(rotSpeed, 0);
+		}
+		
+		System.out.println("execute");
+		// A target has been found
+		
+
+		
+
+	}
+
+	// Called once the command ends or is interrupted.
+	@Override
+	public void end(boolean interrupted) {
+		System.out.println("end");
+		drivetrainSubsystem.stopMovement();
+	}
+
+	// Returns true when the command should end.
+	@Override
+	public boolean isFinished() {
+		return pid.atSetpoint();
+	}
 }

@@ -29,16 +29,13 @@ public class MoveRollers extends Command {
     public void execute() {
 
         if (RobotContainer.xController.getRightBumper()) {
-            System.out.println("right bumper");
             intake.teleopIntakeCommand();
         }
         else if(RobotContainer.xController.getLeftBumper()) {
             intake.teleopOuttakeCommand();
-            System.out.println("left bumper");
         }
         else {
             intake.stopIntake();
-            System.out.println("no bumper");
         }
 
         // System.out.println("Speed: " + speed);
