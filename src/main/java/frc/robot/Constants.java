@@ -52,7 +52,5 @@ public final class Constants {
     public static final double I_ARM = 0;
     public static final double D_ARM = 0;
 
-    // Vision stuff
-    public static final int APRIL_TAG_PIPELINE = 4;
 
 }

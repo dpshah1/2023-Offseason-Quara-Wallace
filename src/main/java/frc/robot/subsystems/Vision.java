@@ -17,16 +17,12 @@ public class Vision extends SubsystemBase {
     NetworkTableEntry tx;
     NetworkTableEntry ty;
     NetworkTableEntry ta;
+    
     public Vision(NetworkTable table){
         this.table = table;
         this.tx = table.getEntry("tx");
         this.ty = table.getEntry("ty");
         this.ta = table.getEntry("ta");
-
-        this.tx.setNumber(Constants.APRIL_TAG_PIPELINE);
-        this.ty.setNumber(Constants.APRIL_TAG_PIPELINE);
-        this.ta.setNumber(Constants.APRIL_TAG_PIPELINE);
-
     }
 
 
