@@ -15,8 +15,10 @@ public class TiltTowardsTarget extends Command {
     private final Vision visionSubsystem;
     private final Drivetrain drivetrainSubsystem;
 
-    private final double TILT_TOLERANCE = 0.5;
-    private final double kP = 0.03; // might need adjusting
+    // Constants
+	private final double TILT_TOLERANCE = 0.5;
+    private final double kP = 0.02; // might need adjusting
+	private final double MIN_SPEED = 0.2;
 
     private PIDController pid;
 
@@ -34,7 +36,7 @@ public class TiltTowardsTarget extends Command {
         addRequirements(drivetrainSubsystem);
 
         // Initialize the PID controller.
-        pid = new PIDController(kP, 0, 0.3);
+        pid = new PIDController(kP, 0, 0);
         pid.setTolerance(TILT_TOLERANCE);
         pid.setSetpoint(0);
     }
@@ -45,13 +47,23 @@ public class TiltTowardsTarget extends Command {
         double offset = visionSubsystem.calcOffset();
 
 
-        if(offset != 0) {
-            double rotSpeed = pid.calculate(offset) * -1;
-            System.out.println(rotSpeed);
-            drivetrainSubsystem.setMovement(rotSpeed, 0);
-        } else {
-            drivetrainSubsystem.stopMovement();
-        }
+		double rotSpeed = Math.max(Math.abs(pid.calculate(offset)), MIN_SPEED);
+		System.out.println("Calculated rot Speed = " + rotSpeed);
+
+		System.out.println("Calculated position error = " + pid.getPositionError());
+		
+		// turn right
+		if(offset > 0)
+		{
+			drivetrainSubsystem.setMovement(rotSpeed, 0);
+		}
+		// turn left
+		else if(offset < 0)
+		{
+			drivetrainSubsystem.setMovement(-rotSpeed, 0);
+		}
+		
+        
     }
 
     // Called once the command ends or is interrupted.
@@ -63,6 +75,6 @@ public class TiltTowardsTarget extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return pid.atSetpoint();
+        return Math.abs(visionSubsystem.calcOffset()) < TILT_TOLERANCE;
     }
 }
