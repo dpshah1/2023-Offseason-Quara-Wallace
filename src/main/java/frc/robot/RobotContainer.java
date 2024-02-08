@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -55,6 +56,8 @@ public class RobotContainer {
   public static Drivetrain drivetrain = new Drivetrain();
   public static Move move = new Move(drivetrain);
 
+//  CommandScheduler.getInstance().setDefaultCommand(drivetrain, new Move(drivetrain));
+
   public static ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   public static XboxController xController = new XboxController(Constants.XBOX_PORT);
@@ -83,6 +86,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    CommandScheduler.getInstance().setDefaultCommand(drivetrain, move);
 
   }
 
@@ -96,7 +100,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     /// tilt button
-    new JoystickButton(xController, Constants.TILT_BUTTON).onTrue(tiltTowardsTargetCommand);
+    new JoystickButton(xController, Constants.TILT_BUTTON).whileTrue(tiltTowardsTargetCommand);
   }
 
   /**
